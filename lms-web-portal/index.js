@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Sample data for demonstration purposes
-let loginCount = 0;
+let loginCount = 10;
 
 const mockData = {
   users: [
