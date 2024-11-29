@@ -1,11 +1,15 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 const port = 4000;
 
 app.use(cors());
+
+// Serve static files
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Sample data for demonstration purposes
 let loginCount = 0;
@@ -27,7 +31,7 @@ const mockData = {
 
 // Test route to verify server is running
 app.get('/', (req, res) => {
-  res.send('Server is running!');
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.get('/logins', (req, res) => {
