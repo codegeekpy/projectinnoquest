@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // API Base URL
-    const apiBaseUrl = 'http://localhost:4000';
+    const apiBaseUrl = 'http://localhost:3000';
 
     fetch(`${apiBaseUrl}/logins`)
         .then(response => response.json())
