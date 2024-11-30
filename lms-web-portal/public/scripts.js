@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fetch Login Count
     fetchData(`${apiBaseUrl}/logins`, (data) => {
-        document.getElementById('login-count').textContent = data.loginCount;
+        document.getElementById('login-count-display').textContent = data.loginCount;
     });
 
     // Fetch Users
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fetch Course Ratings
     fetchData(`${apiBaseUrl}/api/course-ratings`, (data) => {
-        const courseRatings = document.getElementById('course-ratings');
+        const courseRatings = document.getElementById('course-ratings-list');
         courseRatings.innerHTML = '';
         data.forEach(course => {
             const listItem = document.createElement('li');
@@ -70,3 +70,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
