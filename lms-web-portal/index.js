@@ -26,6 +26,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/course-ratings', courseRatingRoutes);
 app.use('/api/engagement-metrics', engagementMetricRoutes);
 
+app.get('/logins', async (req, res) => { try { const userCount = await db.User.count(); res.json({ loginCount: userCount }); } catch (error) { res.status(500).json({ error: 'Failed to fetch login count' }); } });
+
 app.listen(port, () => {
   console.log(`API server running at http://localhost:${port}`);
 });
