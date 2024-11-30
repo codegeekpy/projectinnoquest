@@ -4,6 +4,7 @@ const engagementMetricController = require('../controllers/engagementMetricContr
 
 const router = express.Router();
 
+// Define routes
 router.post(
   '/',
   [
@@ -21,4 +22,14 @@ router.post(
   engagementMetricController.addEngagementMetric
 );
 
+router.get('/', async (req, res) => {
+  try {
+    const metrics = await engagementMetricController.getAllMetrics();
+    res.json(metrics);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch engagement metrics' });
+  }
+});
+
 module.exports = router;
+

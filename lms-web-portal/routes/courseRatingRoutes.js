@@ -4,6 +4,7 @@ const courseRatingController = require('../controllers/courseRatingController');
 
 const router = express.Router();
 
+// Define routes
 router.post(
   '/',
   [
@@ -20,4 +21,14 @@ router.post(
   courseRatingController.addCourseRating
 );
 
+router.get('/', async (req, res) => {
+  try {
+    const ratings = await courseRatingController.getAllRatings();
+    res.json(ratings);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch course ratings' });
+  }
+});
+
 module.exports = router;
+

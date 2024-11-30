@@ -4,6 +4,7 @@ const userController = require('../controllers/userController');
 
 const router = express.Router();
 
+// Define routes
 router.post(
   '/',
   [
@@ -20,4 +21,14 @@ router.post(
   userController.addUser
 );
 
+router.get('/', async (req, res) => {
+  try {
+    const users = await userController.getAllUsers();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch users' });
+  }
+});
+
 module.exports = router;
+
