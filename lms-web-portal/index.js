@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path'); // Add this line to require the path module
 const db = require('./models');
 
 const userRoutes = require('./routes/userRoutes');
@@ -13,7 +14,9 @@ const port = process.env.PORT || 4000;
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static('public'));
+
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Synchronize models with the database
 db.sequelize.sync();
@@ -26,5 +29,6 @@ app.use('/api/engagement-metrics', engagementMetricRoutes);
 app.listen(port, () => {
   console.log(`API server running at http://localhost:${port}`);
 });
+
 
 
