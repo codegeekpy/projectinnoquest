@@ -1,0 +1,10 @@
+{
+    "development": {
+      "username": "YOUR_DB_USERNAME",
+      "password": "YOUR_DB_PASSWORD",
+      "database": "lms_db",
+      "host": "127.0.0.1",
+      "dialect": "postgres"
+    }
+  }
+  

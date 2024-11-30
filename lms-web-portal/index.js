@@ -1,62 +1,48 @@
 const express = require('express');
-const axios = require('axios');
 const cors = require('cors');
-const path = require('path');
+const bodyParser = require('body-parser');
+const db = require('./models');
 
 const app = express();
 const port = 4000;
 
 app.use(cors());
+app.use(bodyParser.json());
+app.use(express.static('public'));
 
-// Serve static files
-app.use(express.static(path.join(__dirname, 'public')));
+// Synchronize models with the database
+db.sequelize.sync();
 
-// Sample data for demonstration purposes
-let loginCount = 10;
-
-const mockData = {
-  users: [
-    { id: 1, name: "Alice", lastLogin: "2024-11-29T10:00:00Z" },
-    { id: 2, name: "Bob", lastLogin: "2024-11-29T12:00:00Z" },
-  ],
-  courseRatings: [
-    { courseId: 101, rating: 4.5 },
-    { courseId: 102, rating: 4.0 },
-  ],
-  engagementMetrics: [
-    { courseId: 101, views: 120, completions: 30 },
-    { courseId: 102, views: 200, completions: 50 },
-  ],
-};
-
-// Test route to verify server is running
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// Endpoint to add users
+app.post('/api/users', async (req, res) => {
+  try {
+    const user = await db.User.create(req.body);
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to add user' });
+  }
 });
 
-app.get('/logins', (req, res) => {
-  res.json({ loginCount });
+// Endpoint to add course ratings
+app.post('/api/course-ratings', async (req, res) => {
+  try {
+    const courseRating = await db.CourseRating.create(req.body);
+    res.json(courseRating);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to add course rating' });
+  }
 });
 
-app.post('/logins', (req, res) => {
-  loginCount++;
-  res.json({ loginCount });
-});
-
-app.get('/api/users', (req, res) => {
-  res.json(mockData.users);
-});
-
-app.get('/api/course-ratings', (req, res) => {
-  res.json(mockData.courseRatings);
-});
-
-app.get('/api/engagement-metrics', (req, res) => {
-  res.json(mockData.engagementMetrics);
+// Endpoint to add engagement metrics
+app.post('/api/engagement-metrics', async (req, res) => {
+  try {
+    const engagementMetric = await db.EngagementMetric.create(req.body);
+    res.json(engagementMetric);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to add engagement metric' });
+  }
 });
 
 app.listen(port, () => {
   console.log(`API server running at http://localhost:${port}`);
 });
-
-
