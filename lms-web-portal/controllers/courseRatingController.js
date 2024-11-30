@@ -8,3 +8,8 @@ exports.addCourseRating = async (req, res) => {
     res.status(500).json({ error: 'Failed to add course rating' });
   }
 };
+
+exports.getAllRatings = async () => {
+  return await CourseRating.findAll();
+};
+

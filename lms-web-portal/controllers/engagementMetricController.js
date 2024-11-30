@@ -8,3 +8,8 @@ exports.addEngagementMetric = async (req, res) => {
     res.status(500).json({ error: 'Failed to add engagement metric' });
   }
 };
+
+exports.getAllMetrics = async () => {
+  return await EngagementMetric.findAll();
+};
+

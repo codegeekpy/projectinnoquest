@@ -8,3 +8,8 @@ exports.addUser = async (req, res) => {
     res.status(500).json({ error: 'Failed to add user' });
   }
 };
+
+exports.getAllUsers = async () => {
+  return await User.findAll();
+};
+
